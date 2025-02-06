@@ -76,7 +76,7 @@
     <!-- top-bar -->
     <div class="top-bar">
       <h1>Modelado del precio del café</h1>
-      <p><a href="#">Menú</a> / <a href="#">proyectos</a> / Series de tiempo</p>
+      <p><a href="#">Menú</a> / <a href="#">proyectos</a> / R/Rstudio</p>
     </div>
     <!-- end top-bar -->
 
@@ -96,7 +96,7 @@
           Análisis de los retornos del precio ajustado de café en el mercado
           internacional entre 2005 y 2019
         </h3>
-        <h5>Series de tiempo</h5>
+        <h5>Series de tiempo en R</h5>
         <div class="h-30"></div>
       </div>
 
@@ -110,36 +110,94 @@
           En Honduras, el mercado del café es un rubro de relevancia en la
           economía hodureña, al ser uno de los principales productores a nivel
           internacional, por lo tanto, los cambios de precio en el mercado
-          internacional, repercuten directa y de manera negativa a
-          los pequeños productores, que constantemente están superando por falta
-          de subsidios para insumos y la presencia de crisis en los cultivos a
-          raíz del clima y plagas, a lo largo del año. Para ello se consideró
-          los precios de futuros del café C, cotizado en el mercado
-          internacional para estimar modelo que presenta un mejor ajuste en el
-          pronóstico de los retornos. 
-          <h3></h3>
+          internacional, repercuten directa y de manera negativa a los pequeños
+          productores, que constantemente están superando por falta de subsidios
+          para insumos y la presencia de crisis en los cultivos a raíz del clima
+          y plagas, a lo largo del año. Para ello se consideró los precios de
+          futuros del café C, cotizado en el mercado internacional para estimar
+          modelo que presenta un mejor ajuste en el pronóstico de los retornos.
+        </p>
+
+        <h4>Objetivo principal</h4>
+        <p>
+          Realizar una análisis los retornos del precio ajustado mensual de los
+          futuros del café en el mercado entre 2005 y 2019.
+        </p>
+        <h4>Análisis de los futuros de café</h4>
+        <p>
+          Para este análisis se consideró los precios ajustados de futuros del
+          café C para la cosecha de marzo 2023, cuya contrato corresponde al
+          café arábiga, que pertenecen a las cotizaciones diarias realizadas en
+          el ICE (Intercontinental Exchange, Inc) en Nueva York. Los datos se
+          tomaron de Yahoo Finances (2022) 1 y consideraron con periodicidad
+          mensual desde diciembre 2005 a octubre 2017. Y corresponden a 143
+          observaciones. La divisa en que se calculan los precios es USX. <br />
+          <br />La serie original del precio ajustado mensual de futuros de café
+          en el mercado internacional presenta picos a lo largo del tiempo, lo
+          que indica crecimientos y evidenciado que la varianza no es la misma
+          para todos los datos; evidencia que la varianza no es constante.
+        </p>
+        <img src="img/serie1.png" alt="" class="picture" />
+        <p>
+          Para estudiar la serie, se calcularán primero sus retornos, mediante
+          la función Return.calculate() como retornos compuesto con una
+          transformación logarítmica. En la serie se identifica un valor atípico
+          y se procede a limpiar la serie. Esta serie exhibe la serie de
+          retornos del precio del café ajustado. Esta tiene un comportamiento
+          estable alrededor de cero, por lo tanto se percibe que podría ser
+          estacionaria en media.
+        </p>
+        <img src="img/serie2.png" alt="" class="picture" />
+        <p>
+          La serie no tiene una tendencia marcado a los largo de los años. Se
+          caracteríza por subidas y bajadas irregulares. Y en general, su
+          comportamiento se asemeja a la componente aleatoria. Sin embargo, el
+          test de Dickey Fuller Aumentado proporciona un pvalue = 0,02976, para
+          5 rezagos lo que indica que es estacionaria, además no se necesita
+          ninguna diferencia en media para estabilizarla. Los correologramas ACF
+          y PACF de los retornos, indican tienen un comportamiento similar al
+          ruido blanco. De esta manera, se procede a determinar el modelo que
+          mejor se ajusta a los datos.
+        </p>
+        <img src="img/serie3.png" alt="" class="picture" />
+        <img src="img/serie 4.png" alt="" class="picture" />
+        <p>
+          El modelo óptimo, según la función auto.arima(), para los datos es el
+          AR(1) con media cero. La ecuación con sus parámetros es: Xt =
+          −0,1760Xt−1. Con AIC = −307,71 y BIC=−301,8. Al revisar el ACF y PACF
+          de los residuos,se percibe que estos se comportan como ruido blanco,
+          aunque en ambos gráficos hay al menos un rezago significativo.
+        </p>
+        <img src="img/serie5.png" alt="" class="picture" />
+        <img src="img/serie6.png" alt="" class="picture" />
+        <p>
+          La prueba de "Ljung-Box"proporciona resultado no tan conluyentes, es
+          decir, para el primer rezago, los residuos no son independientes, pero
+          si se considera hasta el rezago 12, la prueba indica que los rezagos
+          si son independientes entre sí. Po otra parte, los residuos cuadrados
+          muestran un comportamiento interesante, ya que el único rezago
+          significativo es el lag:12, y el test de "Ljung-Box"sustenta que a
+          partir de ese valor existe dependencia de los rezagos cuadrados.
+          <br />
+          <br />
+        </p>
+        <p>
+          En conclusión, la serie se ajusta muy bien al modelo ARC(1) con media
+          cero, cuyo residuos se comporan como ruido blanco, sin embargo, se
+          detectó heterocedasticidad en los residuos cuadrados, por lo tanto
+          podría considerar otro modelo para un mejor ajuste y pronóstico.
         </p>
       </div>
 
       <div class="col-md-3">
-        <h4>Objetivos específicos</h4>
+        <h4>Habilidades</h4>
         <ul class="cat-ul">
+          <li><i class="ion-ios-circle-filled"></i> R y R/Studio</li>
           <li>
-            <i class="ion-ios-circle-filled"></i> Identificar la tendencia y
-            estacionalidad de la serie.
+            <i class="ion-ios-circle-filled"></i> Paquetes: stats, nortest,
+            ggplot2, forecast, rugarch
           </li>
-          <li>
-            <i class="ion-ios-circle-filled"></i> Modelar la serie de tiempo
-            usando el modelo SARIMA.
-          </li>
-          <li>
-            <i class="ion-ios-circle-filled"></i> Verificar la existencia de
-            volatilidad en la serie.
-          </li>
-          <li>
-            <i class="ion-ios-circle-filled"></i> Modelar la varianza
-            condicional usando los modelos ARIMA-GARCH
-          </li>
+          <li><i class="ion-ios-circle-filled"></i> Modelos ARIMA</li>
         </ul>
         <div class="h-10"></div>
         <h4></h4>
